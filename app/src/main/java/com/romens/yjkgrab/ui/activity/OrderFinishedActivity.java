@@ -12,7 +12,6 @@ import android.widget.ListView;
 import com.romens.yjkgrab.Constant;
 import com.romens.yjkgrab.R;
 import com.romens.yjkgrab.model.Order;
-import com.romens.yjkgrab.ui.GrabApplication;
 import com.romens.yjkgrab.ui.adapter.PickUpAdapter;
 import com.romens.yjkgrab.utils.StatusHelper;
 import com.romens.yjkgrab.utils.ToastUtils;
@@ -30,12 +29,13 @@ public class OrderFinishedActivity extends BaseActivity implements AdapterView.O
     private PickUpAdapter finishedAdapter;
     private List<Order> data = new ArrayList<>();
     private ProgressDialog progressDialog;
+    private Order currentOrder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getSupportActionBar().setTitle("完结订单");
-        setContentView(R.layout.activity_list_layout);
+        setContentView(R.layout.finish_order_layout);
         progressDialog = new ProgressDialog(this);
         init();
     }
@@ -60,8 +60,8 @@ public class OrderFinishedActivity extends BaseActivity implements AdapterView.O
         }
         data.clear();
         for (Order order : list) {
-//            if (!TextUtils.equals(order.getInstallationId(), application.getInstallationId()))
-//                continue;
+            if (!TextUtils.equals(order.getInstallationId(), application.getInstallationId()))
+                continue;
             if (TextUtils.equals(Constant.STATUS_FINISH, order.getStatus())) {
                 data.add(order);
             }
@@ -77,13 +77,18 @@ public class OrderFinishedActivity extends BaseActivity implements AdapterView.O
     @Override
     public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
         progressDialog.show();
-        getOrderDetail(data.get(position), new ResultCallBack() {
+        final Order order = currentOrder = data.get(position);
+        getOrderDetail(order, new ResultCallBack() {
             @Override
             public void onSuccess() {
                 progressDialog.dismiss();
-                Intent toOrderIntent = new Intent(OrderFinishedActivity.this, TaskDetailActivity.class);
-                toOrderIntent.putExtra(Constant.OBJECT_ID, data.get(position).getObjectId());
-                startActivity(toOrderIntent);
+                if (currentOrder == order) {
+                    currentOrder = null;
+                    Intent toOrderIntent = new Intent(OrderFinishedActivity.this, TaskDetailActivity.class);
+                    toOrderIntent.putExtra(Constant.OBJECT_ID, data.get(position).getObjectId());
+                    startActivity(toOrderIntent);
+                }
+
             }
 
             @Override

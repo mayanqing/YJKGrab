@@ -5,11 +5,12 @@
     android:background="@color/back_color">
 
     <ListView
-        android:id="@+id/order_listview"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
-        android:divider="@color/trans"
+        android:id="@+id/list_contentview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:divider="@null"
         android:dividerHeight="10dp"
-        android:scrollbars="none"></ListView>
+        android:listSelector="@color/trans"
+        android:scrollbars="none" />
 </LinearLayout>

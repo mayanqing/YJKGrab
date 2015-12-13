@@ -2,29 +2,34 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/shallow_gray"
-    android:paddingBottom="50dp"
-    android:paddingLeft="20dp"
-    android:paddingRight="20dp"
-    android:paddingTop="20dp">
+    android:background="@color/back_color"
+    android:padding="20dp">
 
-    <Button
+    <TextView
         android:id="@+id/cancel_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
+        android:layout_marginLeft="15dp"
         android:background="@drawable/button_selector_style"
+        android:paddingBottom="8dp"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:paddingTop="8dp"
         android:text="取消订单"
         android:textColor="@color/white"
         android:textSize="18sp" />
 
-    <Button
+    <TextView
         android:id="@+id/confrim_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:layout_marginRight="20dp"
+        android:layout_marginRight="15dp"
         android:background="@drawable/button_selector_style"
+        android:paddingBottom="8dp"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:paddingTop="8dp"
         android:text="确认取件"
         android:textColor="@color/white"
         android:textSize="18sp" />

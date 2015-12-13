@@ -147,7 +147,6 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
 
                 @Override
                 public void onFail() {
-
                     progressDialog.dismiss();
                     ToastUtils.toastMsg(mActivity, "抢单失败");
                 }
@@ -156,6 +155,39 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
         } else {
             ToastUtils.toastMsg(mActivity, "先上班！！！");
         }
+    }
+
+    private synchronized void dealOrderAll(final Order order) {
+        if (grabInterface != null) {
+            if (TextUtils.equals(order.getStatus(), Constant.STATUS_WAITING_GRAB)) {
+                grabInterface.grabing(order, new ResultCallBack() {
+                    @Override
+                    public void onSuccess() {
+                        mActivity.notifyAllObservers();
+                        if (data.size() <= 0) {
+                            progressDialog.dismiss();
+                        }
+                        ToastUtils.toastMsg(mActivity, "订单" + order.getOrderId() + "抢单成功!");
+                    }
+
+                    @Override
+                    public void onFail() {
+                        if (data.size() <= 0) {
+                            progressDialog.dismiss();
+                        }
+                        ToastUtils.toastMsg(mActivity, "订单" + order.getOrderId() + "抢单失败");
+                    }
+                });
+            } else {
+                if (data.size() <= 0) {
+                    progressDialog.dismiss();
+                }
+            }
+        } else {
+            progressDialog.dismiss();
+        }
+
+
     }
 
     @Override
@@ -184,4 +216,34 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
         StatusHelper.update(order, resultCallBack, StatusHelper.TO_SEND);
     }
 
+    public void grabbingAll() {
+        if (!mActivity.isWorking()) {
+            ToastUtils.toastMsg(mActivity, "先上班！！！");
+            return;
+        }
+
+        if (data == null || data.size() == 0) {
+            ToastUtils.toastMsg(mActivity, "没有订单可抢");
+            return;
+        }
+
+
+        for (final Order order : data) {
+            progressDialog.show();
+            mOrderDetailInterface.getOrderDetail(order, new ResultCallBack() {
+                @Override
+                public void onSuccess() {
+                    dealOrderAll(order);
+                }
+
+                @Override
+                public void onFail() {
+//                    if (data.size() <= 0) {
+                    progressDialog.dismiss();
+//                    }
+                    ToastUtils.toastMsg(mActivity, "抢单失败");
+                }
+            });
+        }
+    }
 }

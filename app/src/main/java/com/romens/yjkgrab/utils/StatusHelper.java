@@ -1,5 +1,7 @@
 package com.romens.yjkgrab.utils;
 
+import android.util.Log;
+
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVObject;
 import com.avos.avoscloud.AVQuery;
@@ -105,7 +107,6 @@ public class StatusHelper {
                         }
                     }
                 });
-
                 avObject.getAVObject(OrderTable.customer).fetchIfNeededInBackground(new GetCallback<AVObject>() {
                     @Override
                     public void done(AVObject avObject, AVException e) {
@@ -133,10 +134,8 @@ public class StatusHelper {
     }
 
     private static void success(Order order, ResultCallBack resultCallBack) {
-        synchronized (StatusHelper.class) {
-            if (order.isPerfect()) {
-                resultCallBack.onSuccess();
-            }
+        if (order.isPerfect()) {
+            resultCallBack.onSuccess();
         }
     }
 }

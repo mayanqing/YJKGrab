@@ -110,7 +110,7 @@ public class OrderDetailActivity extends BaseDetailActivity implements CancelOrd
                 }
                 textCell.setTextSize(18);
                 textCell.setTextViewPadding(20, 10, 0, 10);
-                textCell.setBackgroundColor(getResources().getColor(R.color.not_trans));
+                textCell.setBackgroundColor(getResources().getColor(R.color.back_color));
             } else if (viewType == 1) {
                 convertView = inflater.inflate(R.layout.product_detail, null, true);
                 //product
@@ -138,15 +138,12 @@ public class OrderDetailActivity extends BaseDetailActivity implements CancelOrd
                 convertView = inflater.inflate(R.layout.two_text_layout, null, true);
                 TextView name = (TextView) convertView.findViewById(R.id.name);
                 TextView content = (TextView) convertView.findViewById(R.id.content);
-                TextView look_map = (TextView) convertView.findViewById(R.id.look_map);
                 switch (position) {
                     case 3:
-                        look_map.setVisibility(View.GONE);
                         name.setText("收货人 : ");
                         content.setText(getOrder().getCustomer().getName());
                         break;
                     case 4:
-                        look_map.setVisibility(View.GONE);
                         name.setText("联系电话 : ");
                         content.setText(getOrder().getCustomer().getPhone());
                         regitsterPhoneClickListener(content, getOrder().getCustomer().getName());
@@ -154,17 +151,8 @@ public class OrderDetailActivity extends BaseDetailActivity implements CancelOrd
                     case 5:
                         name.setText("配送地址 : ");
                         content.setText(getOrder().getCustomer().getAddress());
-
-                        look_map.setVisibility(View.VISIBLE);
-                        look_map.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                Toast.makeText(context, "目前不支持哈。。。", Toast.LENGTH_SHORT).show();
-                            }
-                        });
                         break;
                     case 6:
-                        look_map.setVisibility(View.GONE);
                         name.setText("送达时间 : ");
                         content.setText(DateFormatHelper.formatDate(getOrder().getExpectDate()));
                         break;

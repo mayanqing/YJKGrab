@@ -10,6 +10,7 @@
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:layout_marginRight="10dp"
+        android:layout_centerVertical="true"
         android:scaleType="centerCrop"
         android:src="@mipmap/pharmacy" />
 
@@ -39,6 +40,7 @@
             android:layout_height="wrap_content"
             android:padding="2dp"
             android:text="1.2km"
+            android:visibility="gone"
             android:textColor="@color/orange" />
     </LinearLayout>
 
@@ -55,7 +57,7 @@
             android:layout_height="wrap_content"
             android:padding="2dp"
             android:text="康美龙大药房(中和店)"
-            android:textColor="@color/black" />
+            android:textColor="@color/left_black" />
 
         <LinearLayout
             android:layout_width="match_parent"

@@ -131,7 +131,7 @@
             android:layout_marginBottom="8dp"
             android:background="@drawable/grab_menu_selector"
             android:gravity="center"
-            android:text="休息"
+            android:text="休"
             android:textColor="@color/colorAccent"
             android:textSize="18sp" />
 

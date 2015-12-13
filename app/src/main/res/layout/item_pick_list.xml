@@ -1,39 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="80dp"
+    android:layout_height="100dp"
     android:background="@drawable/item_pressed_style"
-    android:padding="10dp">
+    android:paddingLeft="10dp">
 
     <ImageView
         android:id="@+id/icon"
         android:layout_width="80dp"
         android:layout_height="80dp"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp"
         android:scaleType="centerCrop"
         android:src="@mipmap/pharmacy" />
 
-    <LinearLayout
-        android:id="@+id/grab"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
+    <com.romens.yjkgrab.ui.widget.StatusView xmlns:statusview="http://schemas.android.com/apk/res/com.romens.yjkgrab"
+        android:id="@+id/status"
+        android:layout_width="50dp"
+        android:layout_height="100dp"
         android:layout_alignParentRight="true"
-        android:gravity="center"
-        android:orientation="vertical">
-
-        <com.romens.yjkgrab.ui.widget.StatusView xmlns:statusview="http://schemas.android.com/apk/res/com.romens.yjkgrab"
-            android:id="@+id/status"
-            android:layout_width="40dp"
-            android:layout_height="80dp"
-            statusview:text="配送中" />
-    </LinearLayout>
+        statusview:text="配送中" />
 
     <ImageView
         android:id="@+id/next"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:layout_toLeftOf="@id/grab"
+        android:layout_toLeftOf="@id/status"
         android:alpha="0.5"
         android:src="@mipmap/ic_navigate_next" />
 
@@ -50,7 +46,7 @@
             android:layout_height="wrap_content"
             android:padding="2dp"
             android:text="康美龙大药房(中和店)"
-            android:textColor="@color/black" />
+            android:textColor="@color/left_black" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -63,7 +59,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginRight="2dp"
                 android:text="电话:"
-                android:textColor="@color/black" />
+                android:textColor="@color/left_black" />
 
             <TextView
                 android:id="@+id/shop_phone"
@@ -72,7 +68,7 @@
                 android:ellipsize="end"
                 android:singleLine="true"
                 android:text="18782952519"
-                android:textColor="@color/black" />
+                android:textColor="@color/left_black" />
         </LinearLayout>
 
         <LinearLayout
@@ -86,7 +82,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginRight="2dp"
                 android:text="订单号:"
-                android:textColor="@color/black" />
+                android:textColor="@color/left_black" />
 
             <TextView
                 android:id="@+id/order_id"
@@ -95,7 +91,7 @@
                 android:ellipsize="end"
                 android:singleLine="true"
                 android:text="2015120813"
-                android:textColor="@color/black" />
+                android:textColor="@color/left_black" />
         </LinearLayout>
     </RelativeLayout>
 </RelativeLayout>

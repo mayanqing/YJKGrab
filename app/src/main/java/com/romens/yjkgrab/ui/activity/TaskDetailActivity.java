@@ -91,24 +91,27 @@ public class TaskDetailActivity extends BaseDetailActivity implements FinishOrde
             if (viewType == 0) {
                 convertView = inflater.inflate(R.layout.text_l_time_r_layout, null, true);
                 TextView status = (TextView) convertView.findViewById(R.id.status);
-                status.setText(TextUtils.equals(getOrder().getStatus(), "待送") ? "配送中..." : "配送完成");
+                status.setText(TextUtils.equals(getOrder().getStatus(), Constant.STATUS_WAITING_SEND) ? "配送中..." : "配送完成");
                 TextView date = (TextView) convertView.findViewById(R.id.date);
-                date.setText(DateFormatHelper.getCuttentTime(DateFormatHelper.DATE_PARTTEN));
+                date.setText(TextUtils.equals(getOrder().getStatus(), Constant.STATUS_FINISH) && getOrder().getServiceDate() != null ?
+                        DateFormatHelper.formatDate(DateFormatHelper.DATE_PARTTEN, getOrder().getServiceDate()) :
+                        DateFormatHelper.getCuttentTime(DateFormatHelper.DATE_PARTTEN));
             } else if (viewType == 1) {
                 ProgressView progressView = new ProgressView(context);
                 progressView.setUnPickColor(Color.GRAY);
                 progressView.setPickedColor(0xff00ffff);
-                progressView.setCurrentStep(2);
+                progressView.setCurrentStep(TextUtils.equals(getOrder().getStatus(), Constant.STATUS_FINISH) ? 4 : 2);
                 progressView.setTargetNum(4);
                 progressView.setStepTextColor(Color.RED);
                 progressView.setDescColor(0xff3F51B5);
                 progressView.setShowDesc(true);
+                progressView.setBackgroundColor(Color.WHITE);
                 progressView.setLayoutParams(new AbsListView.LayoutParams(AbsListView.LayoutParams.MATCH_PARENT, DimenHelper.dp(80, context)));
                 HashMap<Integer, String> map = new HashMap<>();
-                map.put(1, "北京");
-                map.put(2, "成都机场");
-                map.put(3, "成都市区");
-                map.put(4, "美年广场");
+                map.put(1, "12:00");
+                map.put(2, "14:00");
+                map.put(3, "16:00");
+                map.put(4, "17:00");
                 progressView.setDescMap(map);
                 convertView = progressView;
             } else if (viewType == 2) {
@@ -140,20 +143,17 @@ public class TaskDetailActivity extends BaseDetailActivity implements FinishOrde
                 textCell.setText("收货人信息");
                 textCell.setTextSize(18);
                 textCell.setTextViewPadding(20, 10, 0, 10);
-                textCell.setBackgroundColor(getResources().getColor(R.color.not_trans));
+                textCell.setBackgroundColor(getResources().getColor(R.color.back_color));
             } else if (viewType == 5) {
                 convertView = inflater.inflate(R.layout.two_text_layout, null, true);
                 TextView name = (TextView) convertView.findViewById(R.id.name);
                 TextView content = (TextView) convertView.findViewById(R.id.content);
-                TextView look_map = (TextView) convertView.findViewById(R.id.look_map);
                 switch (position) {
                     case 6:
-                        look_map.setVisibility(View.GONE);
                         name.setText("收货人 : ");
                         content.setText(getOrder().getCustomer().getName());
                         break;
                     case 7:
-                        look_map.setVisibility(View.GONE);
                         name.setText("联系电话 : ");
                         content.setText(getOrder().getCustomer().getPhone());
                         regitsterPhoneClickListener(content, getOrder().getCustomer().getName());
@@ -161,20 +161,20 @@ public class TaskDetailActivity extends BaseDetailActivity implements FinishOrde
                     case 8:
                         name.setText("配送地址 : ");
                         content.setText(getOrder().getCustomer().getAddress());
-                        if (TextUtils.equals(getOrder().getStatus(), "待送")) {
+                        if (TextUtils.equals(getOrder().getStatus(), Constant.STATUS_WAITING_SEND)) {
+                            TextView look_map = (TextView) convertView.findViewById(R.id.look_map);
                             look_map.setVisibility(View.VISIBLE);
                             look_map.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
-                                    Toast.makeText(context, "目前不支持哈。。。", Toast.LENGTH_SHORT).show();
+                                    ToastUtils.toastMsg(context, "目前不支持哈。。。");
                                 }
                             });
                         }
                         break;
                     case 9:
-                        look_map.setVisibility(View.GONE);
-                        name.setText("送达时间 : ");
-                        content.setText(DateFormatHelper.formatDate(getOrder().getExpectDate()));
+                        name.setText("备注 : ");
+                        content.setText(getOrder().getRemarks());
                         break;
                     default:
                         break;

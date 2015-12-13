@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,6 +40,9 @@ public class PickFragment extends BaseFragment implements View.OnClickListener, 
     private PickUpAdapter unPickAdapter;
     private int currentPage;
     private int pickedRequestCode = 1, unPickRequestCode = 2;
+    private boolean dealing;
+    private Order currentOrder;
+
 
     @Nullable
     @Override
@@ -93,6 +97,7 @@ public class PickFragment extends BaseFragment implements View.OnClickListener, 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         final Order order = currentPage == 1 ? pickedData.get(position) : currentPage == 2 ? unPickedData.get(position) : null;
+        currentOrder = order;
         progressDialog.show();
         mOrderDetailInterface.getOrderDetail(order, new ResultCallBack() {
             @Override
@@ -115,13 +120,15 @@ public class PickFragment extends BaseFragment implements View.OnClickListener, 
     }
 
     @Override
-    void dealOrder(Order order) {
-        toDetailActivity(order);
+    synchronized void dealOrder(Order order) {
+        if (currentOrder == order) {
+            currentOrder = null;
+            toDetailActivity(order);
+        }
     }
 
 
     private void toDetailActivity(Order order) {
-
         switch (currentPage) {
             case 1:
                 Intent toTaskIntent = new Intent(mActivity, TaskDetailActivity.class);

@@ -94,6 +94,7 @@ public class GrabSuccessDialog extends AlertDialog implements View.OnClickListen
         }
         dismiss();
     }
+
     public interface CancelClickListener {
         void onCancelClick();
     }

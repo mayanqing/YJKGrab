@@ -7,8 +7,24 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
+
     <style name="fragment_text">
         <item name="android:textColor">#ffacacac</item>
         <item name="android:textSize">25sp</item>
     </style>
+
+    <style name="full_dialog" parent="@android:style/Theme.Dialog">
+        <item name="android:windowBackground">@color/shallow_gray</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowAnimationStyle">@android:style/Animation.Dialog</item>
+    </style>
+    <!--<style name="full_dialog" parent="@android:style/Theme.Holo.DialogWhenLarge.NoActionBar">-->
+        <!--<item name="android:windowBackground">@color/half_translucent</item>-->
+        <!--<item name="android:windowNoTitle">true</item>-->
+        <!--<item name="android:windowFullscreen">true</item>-->
+        <!--<item name="android:windowIsTranslucent">true</item>-->
+        <!--<item name="android:windowAnimationStyle">@android:style/Animation.InputMethod</item>-->
+    <!--</style>-->
 </resources>

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimary">#03a9f4</color>
+    <color name="colorPrimary1">#3F51B5</color>
     <color name="colorPrimaryDeep">#201A9B</color>
     <color name="colorPrimaryLight">#883F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
@@ -19,4 +20,7 @@
     <color name="light_blue">#00ffff</color>
     <color name="left_black">#383838</color>
     <color name="look_map_color">#344EFF</color>
+    <color name="back_color">#f1f1f1</color>
+    <color name="full_dialog_divider">#E7E8E6</color>
+    <color name="full_dialog_text">#B0B0B0</color>
 </resources>

@@ -34,11 +34,11 @@ import com.romens.yjkgrab.model.Order;
 import com.romens.yjkgrab.observer.DataObserver;
 import com.romens.yjkgrab.table.OrderTable;
 import com.romens.yjkgrab.table.RuntimeGrabingTable;
-import com.romens.yjkgrab.ui.GrabApplication;
 import com.romens.yjkgrab.ui.adapter.HomePagerAdapter;
 import com.romens.yjkgrab.ui.fragment.HomeFragment;
 import com.romens.yjkgrab.ui.fragment.MapFragment;
 import com.romens.yjkgrab.ui.fragment.PickFragment;
+import com.romens.yjkgrab.ui.widget.PhoneNumberDialog;
 import com.romens.yjkgrab.utils.AnalysisHelper;
 import com.romens.yjkgrab.utils.DateCompartor;
 import com.romens.yjkgrab.utils.StatusHelper;
@@ -267,6 +267,8 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
             case R.id.one_key_pick:
                 if (isWorking) {
                     if (mainVp.getCurrentItem() == 0) {
+                        HomeFragment homeFragment = (HomeFragment) fragments[0];
+                        homeFragment.grabbingAll();
                     } else {
                         mainVp.setCurrentItem(0, false);
                     }
