@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.romens.yjkgrab">
     <!-- 基础模块所须声明，必填 - Start  !-->
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.SEND_SMS" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -15,15 +17,21 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.activity.MainActivity">
+        <activity android:name=".ui.activity.YJKActivity"></activity>
+        <activity android:name=".ui.activity.HomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-
+        <activity android:name=".ui.activity.TestActivity"></activity>
+        <activity android:name=".ui.resideMenu.MenuActivity" />
+        <activity android:name=".ui.widget.reddotface.activity.MainActivity" />
+        <activity android:name=".ui.widget.reddotface.activity.ImageActivity" />
+        <activity android:name=".ui.activity.OrderDetailActivity" />
+        <activity android:name=".ui.activity.TaskDetailActivity" />
+        <activity android:name=".ui.activity.OrderFinishedActivity"></activity>
         <service
             android:name="com.avos.avoscloud.PushService"
             android:exported="true" />

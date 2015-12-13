@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <com.romens.yjkgrab.ui.widget.ProgressView xmlns:progressview="http://schemas.android.com/apk/res/com.romens.yjkgrab"
+        android:id="@+id/progressView"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        progressview:showdesc="false"
+        progressview:stepSize="13sp" />
+
+    <Button
+        android:id="@+id/step"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="step" />
+
+    <Button
+        android:id="@+id/pick_color"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="pick_color" />
+
+    <Button
+        android:id="@+id/un_pick_color"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="un_pick_color" />
+
+    <Button
+        android:id="@+id/text_color"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="text_color" />
+
+    <Button
+        android:id="@+id/time_color"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="time_color" />
+
+    <Button
+        android:id="@+id/current_step"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="current_step" />
+
+    <Button
+        android:id="@+id/show_time"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="show_time" />
+
+    <com.romens.yjkgrab.ui.widget.StatusView xmlns:statusview="http://schemas.android.com/apk/res/com.romens.yjkgrab"
+        android:layout_width="50dp"
+        android:layout_height="100dp"
+        statusview:text="日了狗" />
+</LinearLayout>

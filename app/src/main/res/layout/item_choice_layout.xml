@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawableLeft="@mipmap/ic_storage_black"
+        android:drawablePadding="15dp"
+        android:alpha="0.8"
+        android:gravity="left"
+        android:padding="18dp"
+        android:text="我的订单"
+        android:textColor="@color/left_black"
+        android:textSize="18sp" />
+</RelativeLayout>

@@ -3,4 +3,7 @@
 
     <string name="app_id">cfmNQS7vtXfSSbQqcfr9XT58</string>
     <string name="app_key">6Ufh4vwvu71c0DNN8g7K5eoO</string>
+    <string name="app_description">Android drawer icon with material design animation</string>
+    <string name="drawer_open">drawer_open</string>
+    <string name="drawer_close">drawer_close</string>
 </resources>

@@ -1,6 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDeep">#201A9B</color>
+    <color name="colorPrimaryLight">#883F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+    <color name="ldrawer_color">#FFFFFF</color>
+    <color name="drawer_arrow_second_color">#303f9f</color>
+    <color name="orange">#FF6822</color>
+    <color name="trans">#00000000</color>
+    <color name="not_trans">#20000000</color>
+    <color name="white">#ffffff</color>
+    <color name="black">#000000</color>
+    <color name="deep_gray">#4a000000</color>
+    <color name="shallow_gray">#10000000</color>
+    <color name="gray_black">#8a000000</color>
+    <color name="gray">#8a443300</color>
+    <color name="light_blue">#00ffff</color>
+    <color name="left_black">#383838</color>
+    <color name="look_map_color">#344EFF</color>
 </resources>

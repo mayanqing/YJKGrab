@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="StatusView">
+        <attr name="text" format="string"></attr>
+        <attr name="backColor" format="color"></attr>
+        <attr name="textColor" format="color"></attr>
+        <attr name="textSize" format="dimension"></attr>
+    </declare-styleable>
+
+    <declare-styleable name="ProgressView">
+        <attr name="pickedColor" format="color"></attr>
+        <attr name="unPickColor" format="color"></attr>
+        <attr name="stepTextColor" format="color"></attr>
+        <attr name="descColor" format="color"></attr>
+        <attr name="showdesc" format="boolean"></attr>
+        <attr name="currentStep" format="integer"></attr>
+        <attr name="targetNum" format="integer"></attr>
+        <attr name="stepSize" format="dimension"></attr>
+        <attr name="descSize" format="dimension"></attr>
+    </declare-styleable>
+    <declare-styleable name="CustomTextView">
+        <attr name="contentText" format="string"></attr>
+    </declare-styleable>
+</resources>

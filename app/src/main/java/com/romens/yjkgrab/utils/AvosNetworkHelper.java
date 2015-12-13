@@ -3,6 +3,7 @@ package com.romens.yjkgrab.utils;
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVObject;
 import com.avos.avoscloud.AVQuery;
+import com.avos.avoscloud.FindCallback;
 import com.avos.avoscloud.GetCallback;
 import com.avos.avoscloud.SaveCallback;
 
@@ -41,16 +42,6 @@ public class AvosNetworkHelper {
         } catch (AVException e) {
             // e.getMessage() 捕获的异常信息
         }
-    }
-
-    public static void query(String objId, GetCallback callback) {
-        AVQuery<AVObject> query = new AVQuery<AVObject>("Post");
-        query.getInBackground(objId, callback);
-        // e.getMessage()
-        //要从检索到的 AVObject 实例中获取值，可以使用相应的数据类型的 getType 方法
-        //String content = post.getString("content");
-        //String userName = post.getString("pubUser");
-        //int userVerified = post.getInt("pubUserCertificate");
     }
 
 
