@@ -7,20 +7,21 @@ import android.support.v4.app.Fragment;
 import com.romens.yjkgrab.model.Order;
 import com.romens.yjkgrab.observer.DataObserver;
 import com.romens.yjkgrab.ui.activity.HomeActivity;
+import com.romens.yjkgrab.ui.activity.HomePageActivity;
 import com.romens.yjkgrab.wokinterface.OrderDetailInterface;
 
 /**
  * Created by myq on 15-12-9.
  */
 public abstract class BaseFragment extends Fragment implements DataObserver {
-    protected HomeActivity mActivity;
+    protected HomePageActivity mActivity;
     protected ProgressDialog progressDialog;
     public OrderDetailInterface mOrderDetailInterface;
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        mActivity = (HomeActivity) getActivity();
+        mActivity = (HomePageActivity) getActivity();
         mOrderDetailInterface = (OrderDetailInterface) mActivity;
         progressDialog = new ProgressDialog(mActivity);
     }

@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/item_pressed_style"
+    android:background="@drawable/frame_white"
     android:padding="10dp">
 
     <ImageView
@@ -25,12 +25,13 @@
 
         <TextView
             android:id="@+id/one_key_pick"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
             android:layout_gravity="center_horizontal|bottom"
-            android:background="@drawable/menu_dot_blue"
+            android:background="@drawable/menu_dot_pressed_style"
             android:gravity="center"
             android:text="抢"
+            android:clickable="true"
             android:textColor="@color/white"
             android:textSize="18sp" />
 

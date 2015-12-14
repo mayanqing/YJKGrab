@@ -3,6 +3,7 @@ package com.romens.yjkgrab.ui;
 import com.avos.avoscloud.AVOSCloud;
 import com.romens.yjkgrab.R;
 import com.romens.yjkgrab.ui.activity.HomeActivity;
+import com.romens.yjkgrab.ui.activity.HomePageActivity;
 
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -21,17 +22,18 @@ public class CustomReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         try {
-            Log.i("action",intent.getAction());
+            Log.i("action", intent.getAction());
             if (intent.getAction().equals(PUSH_ACTION)) {
-                if (HomeActivity.isForeground()) {
-                    Log.i("action","sendBroadCast");
-                    context.sendBroadcast(new Intent(HomeActivity.NEW_ORDER_ACTION));
+                HomePageActivity.setIsGrabing(true);
+                if (HomePageActivity.isForeground()) {
+                    Log.i("action", "sendBroadCast");
+                    context.sendBroadcast(new Intent(HomePageActivity.NEW_ORDER_ACTION));
                     return;
                 }
                 JSONObject json = new JSONObject(intent.getExtras().getString("com.avos.avoscloud.Data"));
                 final String message = json.getString("alert");
                 String title = json.getString("title");
-                Intent resultIntent = new Intent(AVOSCloud.applicationContext, HomeActivity.class);
+                Intent resultIntent = new Intent(AVOSCloud.applicationContext, HomePageActivity.class);
                 resultIntent.putExtra("message", message);
                 PendingIntent pendingIntent =
                         PendingIntent.getActivity(AVOSCloud.applicationContext, 0, resultIntent,

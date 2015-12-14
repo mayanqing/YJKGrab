@@ -21,7 +21,7 @@ public abstract class ModelAdapter<T> extends BaseAdapter {
     private Context context;
     private LayoutInflater inflater;
 
-    public ModelAdapter(List<T> list, Context context) {
+    protected ModelAdapter(List<T> list, Context context) {
         this.list = list;
         this.context = context;
         inflater = LayoutInflater.from(context);
@@ -52,13 +52,17 @@ public abstract class ModelAdapter<T> extends BaseAdapter {
         } else {
             viewHolder = (ModelViewHolder) convertView.getTag();
         }
-        onBindViewHolder(position, viewHolder);
+        onBindViewHolder(position, viewHolder, parent);
         return convertView;
     }
 
     protected void onBindViewHolder(int position, ModelViewHolder viewHolder) {
         T t = list.get(position);
         onBindViewHolder(viewHolder, t);
+    }
+
+    protected void onBindViewHolder(int position, ModelViewHolder viewHolder, ViewGroup parent) {
+        onBindViewHolder(position, viewHolder);
     }
 
     protected abstract void onBindViewHolder(ModelViewHolder viewHolder, T t);

@@ -29,7 +29,8 @@ public class GrabSuccessDialog extends AlertDialog implements View.OnClickListen
 
     private CancelClickListener cancelClick;
     private PickupClickListener pickupClick;
-    private TextView order_id, shop_name_detail, shop_adress_detail, customer_name, customer_adrress_detail, customer_phone_num, remarks, pick_up_date, cancel_order, pcik_up_product;
+    private TextView order_id, shop_name_detail, shop_adress_detail, customer_name, customer_adrress_detail, customer_phone_num, remarks, pick_up_date, cancel_order;
+//    pcik_up_product;
     private Order order;
 
     public GrabSuccessDialog(Context context, int themeResId) {
@@ -63,9 +64,9 @@ public class GrabSuccessDialog extends AlertDialog implements View.OnClickListen
         customer_phone_num = (TextView) findViewById(R.id.customer_phone_num);
         pick_up_date = (TextView) findViewById(R.id.pick_up_date);
         cancel_order = (TextView) findViewById(R.id.cancel_order);
-        pcik_up_product = (TextView) findViewById(R.id.pcik_up_product);
+//        pcik_up_product = (TextView) findViewById(R.id.pcik_up_product);
         cancel_order.setOnClickListener(this);
-        pcik_up_product.setOnClickListener(this);
+//        pcik_up_product.setOnClickListener(this);
     }
 
     private void initOrderInfo(Order order) {
@@ -80,18 +81,18 @@ public class GrabSuccessDialog extends AlertDialog implements View.OnClickListen
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.cancel_order:
-                if (cancelClick != null)
-                    cancelClick.onCancelClick();
-                break;
-            case R.id.pcik_up_product:
-                if (pickupClick != null)
-                    pickupClick.onPickupClick();
-                break;
-            default:
-                break;
-        }
+//        switch (v.getId()) {
+//            case R.id.cancel_order:
+//                if (cancelClick != null)
+//                    cancelClick.onCancelClick();
+//                break;
+//            case R.id.pcik_up_product:
+//                if (pickupClick != null)
+//                    pickupClick.onPickupClick();
+//                break;
+//            default:
+//                break;
+//        }
         dismiss();
     }
 

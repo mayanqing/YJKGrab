@@ -15,10 +15,16 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.view.animation.LinearInterpolator;
+import android.view.animation.RotateAnimation;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.avos.avoscloud.AVException;
@@ -50,12 +56,16 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
-public class HomeActivity extends BaseActivity implements View.OnClickListener, WorkInterface, AdapterView.OnItemClickListener {
+public class HomePageActivity extends BaseActivity implements View.OnClickListener, WorkInterface, AdapterView.OnItemClickListener {
     public static boolean isGrabing() {
         return isGrabing;
     }
 
-    private static boolean isGrabing = true;
+    public static void setIsGrabing(boolean isGrabing) {
+        HomePageActivity.isGrabing = isGrabing;
+    }
+
+    private static boolean isGrabing = false;
     private DrawerLayout mDrawerLayout;
     private ListView mDrawerList;
     private ImageView title_menu, play_pause;
@@ -70,7 +80,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
     }
 
     public static void setIsForeground(boolean isForeground) {
-        HomeActivity.isForeground = isForeground;
+        HomePageActivity.isForeground = isForeground;
     }
 
     private static boolean isForeground = false;
@@ -83,17 +93,27 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
     private static boolean isWorking = false;
     private ViewPager mainVp;
     private Fragment[] fragments = new Fragment[3];
-    private TextView[] textViews = new TextView[3];
-    private TextView more_icon;
+    private TextView[] LIn = new TextView[3];
+    private LinearLayout[] bottomLinearLayouts = new LinearLayout[3];
+    private ImageView[] bottomIcons = new ImageView[3];
+    private ImageView[] bottomTexts = new ImageView[3];
+    private int[] bottomSelectIconsIds = {R.mipmap.home_icon_selected, R.mipmap.near_icon_selected, R.mipmap.order_icon_selected};
+    private int[] bottomUnSelectIconsIds = {R.mipmap.home_icon_unselect, R.mipmap.near_icon_unselect, R.mipmap.order_icon_unselect};
+    private int[] bottomSelectTextIds = {R.mipmap.home_text_selected, R.mipmap.near_text_selected, R.mipmap.order_text_selected};
+    private int[] bottomUnSelectTextIds = {R.mipmap.home_text_unselect, R.mipmap.near_text_unselect, R.mipmap.order_text_unselect};
+    private LinearLayout more_ll;
+
+
     //一键抢单
-    private TextView oneKeyPick;
+    private RelativeLayout oneKeyPick;
+    private ImageView onKeyIcon;
     private NewOrderReceiver newOrderReceiver = new NewOrderReceiver();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getSupportActionBar().hide();
-        setContentView(R.layout.activity_sample);
+        setContentView(R.layout.activity_home_page);
         progressDialog = new ProgressDialog(this);
         progressDialog.setCanceledOnTouchOutside(false);
         init();
@@ -102,9 +122,6 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
         registerNewOrderReceiver();
         setIsForeground(true);
         //通知栏进入
-        if (getIntent().getStringExtra("message") != null) {
-            isGrabing = true;
-        }
         queryDataFromServer();
         //清空通知栏
         NotificationManager mNotifyMgr =
@@ -124,13 +141,19 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
     }
 
     public void setIsWorking(boolean isWorking) {
-        HomeActivity.isWorking = isWorking;
+        HomePageActivity.isWorking = isWorking;
         if (play_pause != null) {
             play_pause.setImageResource(isWorking ? R.mipmap.ic_pause_circle_filled_white : R.mipmap.ic_play_circle_filled_white);
         }
-        if (oneKeyPick != null) {
-            oneKeyPick.setText(isWorking ? "抢" : "休");
-//            oneKeyPick.setTextSize(isWorking ? 25 : 18);
+        if (onKeyIcon != null) {
+            onKeyIcon.clearAnimation();
+            RotateAnimation animation = new RotateAnimation(isWorking ? 135f : 0f, isWorking ? 0f : 135f, Animation.RELATIVE_TO_SELF,
+                    0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+            animation.setDuration(250);
+            //加上这句，动画就会停留在执行完毕的状态
+            //如果不加这句，会回到一开始的状态，所以会认为没有效果。如果把duration设置的长一点如5000ms，会看到明显的动画效果
+            animation.setFillAfter(true);
+            onKeyIcon.setAnimation(animation);
         }
     }
 
@@ -142,15 +165,16 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
         query.findInBackground(new FindCallback<AVObject>() {
             @Override
             public void done(List<AVObject> list, AVException e) {
-                progressDialog.dismiss();
                 if (e == null) {
                     for (AVObject avObject : list) {
                         data.add(AnalysisHelper.OrderHelper.analysis(avObject));
                         notifyAllObservers();
                     }
                 } else {
-                    ToastUtils.toastMsg(HomeActivity.this, "查找失败");
+                    ToastUtils.toastMsg(HomePageActivity.this, "查找失败");
                 }
+                if (progressDialog.isShowing())
+                    progressDialog.dismiss();
             }
         });
     }
@@ -179,15 +203,22 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
      * 初始化下方菜单栏
      */
     private void initBottonMenus() {
-        textViews[0] = (TextView) findViewById(R.id.home_icon);
-        textViews[1] = (TextView) findViewById(R.id.place_icon);
-        textViews[2] = (TextView) findViewById(R.id.order_icon);
-        for (TextView textView : textViews) {
+        bottomLinearLayouts[0] = (LinearLayout) findViewById(R.id.home_ll);
+        bottomIcons[0] = (ImageView) findViewById(R.id.home_icon);
+        bottomTexts[0] = (ImageView) findViewById(R.id.home_text);
+        bottomLinearLayouts[1] = (LinearLayout) findViewById(R.id.near_ll);
+        bottomIcons[1] = (ImageView) findViewById(R.id.near_icon);
+        bottomTexts[1] = (ImageView) findViewById(R.id.near_text);
+        bottomLinearLayouts[2] = (LinearLayout) findViewById(R.id.order_ll);
+        bottomIcons[2] = (ImageView) findViewById(R.id.order_icon);
+        bottomTexts[2] = (ImageView) findViewById(R.id.order_text);
+        for (LinearLayout textView : bottomLinearLayouts) {
             textView.setOnClickListener(this);
         }
-        more_icon = (TextView) findViewById(R.id.more_icon);
-        more_icon.setOnClickListener(this);
-        oneKeyPick = (TextView) findViewById(R.id.one_key_pick);
+        more_ll = (LinearLayout) findViewById(R.id.more_ll);
+        more_ll.setOnClickListener(this);
+        oneKeyPick = (RelativeLayout) findViewById(R.id.one_key_pick);
+        onKeyIcon = (ImageView) findViewById(R.id.one_key_icon);
         oneKeyPick.setOnClickListener(this);
     }
 
@@ -208,12 +239,13 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
             @Override
             public void onPageSelected(int position) {
                 setTitleName(titleName[position]);
-                int count = textViews.length;
-                for (int i = 0; i < count; i++) {
+                for (int i = 0; i < 3; i++) {
                     if (i == position) {
-                        textViews[i].setAlpha(1);
+                        bottomIcons[i].setImageResource(bottomSelectIconsIds[i]);
+                        bottomTexts[i].setImageResource(bottomSelectTextIds[i]);
                     } else {
-                        textViews[i].setAlpha(0.5f);
+                        bottomIcons[i].setImageResource(bottomUnSelectIconsIds[i]);
+                        bottomTexts[i].setImageResource(bottomUnSelectTextIds[i]);
                     }
                 }
             }
@@ -251,16 +283,16 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
             case R.id.play_pause:
                 setIsWorking(!isWorking());
                 break;
-            case R.id.home_icon:
+            case R.id.home_ll:
                 mainVp.setCurrentItem(0, false);
                 break;
-            case R.id.place_icon:
+            case R.id.near_ll:
                 mainVp.setCurrentItem(1, false);
                 break;
-            case R.id.order_icon:
+            case R.id.order_ll:
                 mainVp.setCurrentItem(2, false);
                 break;
-            case R.id.more_icon:
+            case R.id.more_ll:
 //                startActivity(new Intent(this, TestActivity.class));
                 break;
             case R.id.one_key_pick:
@@ -272,7 +304,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
                         mainVp.setCurrentItem(0, false);
                     }
                 } else {
-                    ToastUtils.toastMsg(HomeActivity.this, "先上班！！！");
+                    ToastUtils.toastMsg(HomePageActivity.this, "先上班！！！");
                 }
                 break;
             default:
@@ -422,8 +454,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
         @Override
         public void onReceive(Context context, Intent intent) {
             if (TextUtils.equals(intent.getAction(), NEW_ORDER_ACTION)) {
-                isGrabing = true;
-                ToastUtils.toastMsg(HomeActivity.this,"有新订单！！");
+                ToastUtils.toastMsg(HomePageActivity.this, "有新订单！！");
                 queryDataFromServer();
             }
         }

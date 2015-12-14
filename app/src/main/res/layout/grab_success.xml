@@ -273,26 +273,27 @@
 
             <TextView
                 android:id="@+id/cancel_order"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:gravity="center"
                 android:background="@drawable/button_selector_style"
                 android:paddingBottom="5dp"
                 android:paddingTop="5dp"
-                android:text="取消订单"
+                android:text="继续抢单"
                 android:textColor="@color/white"
                 android:textSize="18sp" />
 
-            <TextView
-                android:id="@+id/pcik_up_product"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:background="@drawable/button_selector_style"
-                android:paddingBottom="5dp"
-                android:paddingTop="5dp"
-                android:text="确认取件"
-                android:textColor="@color/white"
-                android:textSize="18sp" />
+            <!--<TextView-->
+                <!--android:id="@+id/pcik_up_product"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_alignParentRight="true"-->
+                <!--android:background="@drawable/button_selector_style"-->
+                <!--android:paddingBottom="5dp"-->
+                <!--android:paddingTop="5dp"-->
+                <!--android:text="确认取件"-->
+                <!--android:textColor="@color/white"-->
+                <!--android:textSize="18sp" />-->
         </RelativeLayout>
     </LinearLayout>
 </LinearLayout>

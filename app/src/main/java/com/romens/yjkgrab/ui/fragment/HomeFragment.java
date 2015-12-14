@@ -60,40 +60,40 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
                     public void onSuccess() {
                         GrabSuccessDialog grabSuccessDialog = new GrabSuccessDialog(mActivity, order);
                         grabSuccessDialog.setOrder(order);
-                        grabSuccessDialog.setCancelClick(new GrabSuccessDialog.CancelClickListener() {
-                            @Override
-                            public void onCancelClick() {
-                                cancelOrder(order, new ResultCallBack() {
-                                    @Override
-                                    public void onSuccess() {
-                                        mActivity.notifyAllObservers();
-                                        ToastUtils.toastMsg(mActivity, "取消成功");
-                                    }
-
-                                    @Override
-                                    public void onFail() {
-                                        ToastUtils.toastMsg(mActivity, "取消失败");
-                                    }
-                                });
-                            }
-                        });
-                        grabSuccessDialog.setPickupClick(new GrabSuccessDialog.PickupClickListener() {
-                            @Override
-                            public void onPickupClick() {
-                                pickUp(order, new ResultCallBack() {
-                                    @Override
-                                    public void onSuccess() {
-                                        mActivity.notifyAllObservers();
-                                        ToastUtils.toastMsg(mActivity, "取件成功");
-                                    }
-
-                                    @Override
-                                    public void onFail() {
-                                        ToastUtils.toastMsg(mActivity, "取件失败");
-                                    }
-                                });
-                            }
-                        });
+//                        grabSuccessDialog.setCancelClick(new GrabSuccessDialog.CancelClickListener() {
+//                            @Override
+//                            public void onCancelClick() {
+//                                cancelOrder(order, new ResultCallBack() {
+//                                    @Override
+//                                    public void onSuccess() {
+//                                        mActivity.notifyAllObservers();
+//                                        ToastUtils.toastMsg(mActivity, "取消成功");
+//                                    }
+//
+//                                    @Override
+//                                    public void onFail() {
+//                                        ToastUtils.toastMsg(mActivity, "取消失败");
+//                                    }
+//                                });
+//                            }
+//                        });
+//                        grabSuccessDialog.setPickupClick(new GrabSuccessDialog.PickupClickListener() {
+//                            @Override
+//                            public void onPickupClick() {
+//                                pickUp(order, new ResultCallBack() {
+//                                    @Override
+//                                    public void onSuccess() {
+//                                        mActivity.notifyAllObservers();
+//                                        ToastUtils.toastMsg(mActivity, "取件成功");
+//                                    }
+//
+//                                    @Override
+//                                    public void onFail() {
+//                                        ToastUtils.toastMsg(mActivity, "取件失败");
+//                                    }
+//                                });
+//                            }
+//                        });
                         grabSuccessDialog.show();
                     }
 
@@ -128,13 +128,13 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
 
     private void initViews() {
         orderListView = (ListView) contentView.findViewById(R.id.order_listview);
-        adapter = new OrderAdapter(data, mActivity);
+        adapter = new OrderAdapter(data, mActivity, this);
         orderListView.setAdapter(adapter);
-        orderListView.setOnItemClickListener(this);
     }
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        Log.i(">>>>>>>>>", "onItemClick");
         if (mActivity.isWorking()) {
             final Order order = data.get(position);
             progressDialog.show();

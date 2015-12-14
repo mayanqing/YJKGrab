@@ -41,7 +41,7 @@ public class TaskDetailActivity extends BaseDetailActivity implements FinishOrde
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getSupportActionBar().setTitle("任务详情");
+        getSupportActionBar().setTitle(TextUtils.equals(Constant.STATUS_FINISH, getOrder().getStatus()) ? "订单详情" : "任务详情");
         setContentView(R.layout.activity_list_layout);
         init();
     }
@@ -188,9 +188,11 @@ public class TaskDetailActivity extends BaseDetailActivity implements FinishOrde
                     income_btn.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
+                            progressDialog.show();
                             finishOrder(getOrder(), new ResultCallBack() {
                                 @Override
                                 public void onSuccess() {
+                                    progressDialog.dismiss();
                                     ToastUtils.toastMsg(TaskDetailActivity.this, "送达成功");
                                     setResult(RESULT_OK);
                                     finish();
@@ -198,6 +200,7 @@ public class TaskDetailActivity extends BaseDetailActivity implements FinishOrde
 
                                 @Override
                                 public void onFail() {
+                                    progressDialog.dismiss();
                                     ToastUtils.toastMsg(TaskDetailActivity.this, "送达失败");
                                 }
                             });

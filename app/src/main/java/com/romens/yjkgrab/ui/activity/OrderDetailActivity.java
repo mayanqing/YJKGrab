@@ -164,9 +164,11 @@ public class OrderDetailActivity extends BaseDetailActivity implements CancelOrd
                 convertView.findViewById(R.id.cancel_button).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        progressDialog.show();
                         cancelOrder(getOrder(), new ResultCallBack() {
                             @Override
                             public void onSuccess() {
+                                progressDialog.dismiss();
                                 ToastUtils.toastMsg(OrderDetailActivity.this, "取消成功");
                                 setResult(RESULT_OK);
                                 finish();
@@ -174,6 +176,7 @@ public class OrderDetailActivity extends BaseDetailActivity implements CancelOrd
 
                             @Override
                             public void onFail() {
+                                progressDialog.dismiss();
                                 ToastUtils.toastMsg(OrderDetailActivity.this, "取消失败");
                             }
                         });
@@ -182,9 +185,11 @@ public class OrderDetailActivity extends BaseDetailActivity implements CancelOrd
                 convertView.findViewById(R.id.confrim_button).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        progressDialog.show();
                         pickUp(getOrder(), new ResultCallBack() {
                             @Override
                             public void onSuccess() {
+                                progressDialog.dismiss();
                                 ToastUtils.toastMsg(OrderDetailActivity.this, "取件成功");
                                 setResult(RESULT_OK);
                                 finish();
@@ -192,6 +197,7 @@ public class OrderDetailActivity extends BaseDetailActivity implements CancelOrd
 
                             @Override
                             public void onFail() {
+                                progressDialog.dismiss();
                                 ToastUtils.toastMsg(OrderDetailActivity.this, "取件成功");
                             }
                         });

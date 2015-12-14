@@ -27,10 +27,12 @@ import com.romens.yjkgrab.ui.widget.PhoneNumberDialog;
  */
 public abstract class BaseDetailActivity extends BaseActivity {
     private Order order;
+    protected ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        progressDialog = new ProgressDialog(this);
     }
 
 

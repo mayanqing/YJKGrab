@@ -9,6 +9,7 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.VIBRATE" />
     <!-- 基础模块所须声明 - End  !-->
     <application
         android:name=".ui.GrabApplication"
@@ -18,20 +19,36 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".ui.activity.YJKActivity"></activity>
-        <activity android:name=".ui.activity.HomeActivity">
+        <activity
+            android:name=".ui.activity.HomePageActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.activity.TestActivity"></activity>
-        <activity android:name=".ui.resideMenu.MenuActivity" />
-        <activity android:name=".ui.widget.reddotface.activity.MainActivity" />
-        <activity android:name=".ui.widget.reddotface.activity.ImageActivity" />
-        <activity android:name=".ui.activity.OrderDetailActivity" />
-        <activity android:name=".ui.activity.TaskDetailActivity" />
-        <activity android:name=".ui.activity.OrderFinishedActivity"></activity>
+        <activity
+            android:name=".ui.activity.TestActivity"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".ui.resideMenu.MenuActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.widget.reddotface.activity.MainActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.widget.reddotface.activity.ImageActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.OrderDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.TaskDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.OrderFinishedActivity"
+            android:screenOrientation="portrait"></activity>
 
         <service
             android:name="com.avos.avoscloud.PushService"

@@ -20,7 +20,7 @@ public class StatusView extends View {
     private Paint backPaint, textPaint;
 
 
-    private int backColor = 0xff3F51B5;
+    private int backColor = 0xff03a9f4;
 
     private int textColor = Color.WHITE;
 

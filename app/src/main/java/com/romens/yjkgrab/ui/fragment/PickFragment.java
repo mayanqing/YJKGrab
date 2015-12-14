@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -40,9 +41,8 @@ public class PickFragment extends BaseFragment implements View.OnClickListener, 
     private PickUpAdapter unPickAdapter;
     private int currentPage;
     private int pickedRequestCode = 1, unPickRequestCode = 2;
-    private boolean dealing;
     private Order currentOrder;
-
+    private final int UN_PICK_PAGE = 1, PICKED_PAGE = 2;
 
     @Nullable
     @Override
@@ -63,15 +63,15 @@ public class PickFragment extends BaseFragment implements View.OnClickListener, 
         tabUnPick.setOnClickListener(this);
         tabPicked.setOnClickListener(this);
         selectViewUnPick = (SelectView) contentView.findViewById(R.id.select_un_pick);
-        selectViewUnPick.setSelected(true);
-        currentPage = 1;
         selectPicked = (SelectView) contentView.findViewById(R.id.select__picked);
-        selectPicked.setSelected(false);
+        currentPage = UN_PICK_PAGE;
+        selectPicked.setIsSelectPick(true);
+        selectViewUnPick.setIsSelectPick(false);
         pickupListview = (ListView) contentView.findViewById(R.id.pickup_listview);
         pickedadapter = new PickUpAdapter(pickedData, mActivity);
-        pickupListview.setAdapter(pickedadapter);
         pickupListview.setOnItemClickListener(this);
         unPickAdapter = new PickUpAdapter(unPickedData, mActivity, PickUpAdapter.TYPE_UNPICK);
+        pickupListview.setAdapter(unPickAdapter);
     }
 
     @Override
@@ -81,10 +81,10 @@ public class PickFragment extends BaseFragment implements View.OnClickListener, 
                 selectPicked.setIsSelectPick(true);
                 selectViewUnPick.setIsSelectPick(false);
                 pickupListview.setAdapter(unPickAdapter);
-                currentPage = 2;
+                currentPage = UN_PICK_PAGE;
                 break;
             case R.id.tab_picked:
-                currentPage = 1;
+                currentPage = PICKED_PAGE;
                 selectViewUnPick.setIsSelectPick(true);
                 selectPicked.setIsSelectPick(false);
                 pickupListview.setAdapter(pickedadapter);
@@ -96,7 +96,7 @@ public class PickFragment extends BaseFragment implements View.OnClickListener, 
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        final Order order = currentPage == 1 ? pickedData.get(position) : currentPage == 2 ? unPickedData.get(position) : null;
+        final Order order = currentPage == PICKED_PAGE ? pickedData.get(position) : currentPage == UN_PICK_PAGE ? unPickedData.get(position) : null;
         currentOrder = order;
         progressDialog.show();
         mOrderDetailInterface.getOrderDetail(order, new ResultCallBack() {
@@ -130,12 +130,12 @@ public class PickFragment extends BaseFragment implements View.OnClickListener, 
 
     private void toDetailActivity(Order order) {
         switch (currentPage) {
-            case 1:
+            case PICKED_PAGE:
                 Intent toTaskIntent = new Intent(mActivity, TaskDetailActivity.class);
                 toTaskIntent.putExtra(Constant.OBJECT_ID, order.getObjectId());
                 startActivityForResult(toTaskIntent, pickedRequestCode);
                 break;
-            case 2:
+            case UN_PICK_PAGE:
                 Intent toOrderIntent = new Intent(mActivity, OrderDetailActivity.class);
                 toOrderIntent.putExtra(Constant.OBJECT_ID, order.getObjectId());
                 startActivityForResult(toOrderIntent, unPickRequestCode);
@@ -170,9 +170,9 @@ public class PickFragment extends BaseFragment implements View.OnClickListener, 
                 unPickedData.add(order);
             }
         }
-        if (currentPage == 1)
+        if (currentPage == PICKED_PAGE)
             pickedadapter.notifyDataSetChanged();
-        else if (currentPage == 2)
+        else if (currentPage == UN_PICK_PAGE)
             unPickAdapter.notifyDataSetChanged();
     }
 }
