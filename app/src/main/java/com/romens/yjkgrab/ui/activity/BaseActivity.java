@@ -1,7 +1,5 @@
 package com.romens.yjkgrab.ui.activity;
 
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -9,9 +7,9 @@ import android.view.MenuItem;
 
 import com.romens.yjkgrab.ui.GrabApplication;
 
-import java.util.List;
 
 public abstract class BaseActivity extends AppCompatActivity {
+
     protected GrabApplication application;
 
     @Override

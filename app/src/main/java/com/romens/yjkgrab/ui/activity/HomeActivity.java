@@ -16,10 +16,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVOSCloud;
@@ -38,6 +40,8 @@ import com.romens.yjkgrab.ui.adapter.HomePagerAdapter;
 import com.romens.yjkgrab.ui.fragment.HomeFragment;
 import com.romens.yjkgrab.ui.fragment.MapFragment;
 import com.romens.yjkgrab.ui.fragment.PickFragment;
+import com.romens.yjkgrab.ui.widget.FullListDialog;
+import com.romens.yjkgrab.ui.widget.PhoneNumberDialog;
 import com.romens.yjkgrab.utils.AnalysisHelper;
 import com.romens.yjkgrab.utils.DateCompartor;
 import com.romens.yjkgrab.utils.StatusHelper;
@@ -423,7 +427,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
         public void onReceive(Context context, Intent intent) {
             if (TextUtils.equals(intent.getAction(), NEW_ORDER_ACTION)) {
                 isGrabing = true;
-                ToastUtils.toastMsg(HomeActivity.this,"有新订单！！");
+                ToastUtils.toastMsg(HomeActivity.this, "有新订单！！");
                 queryDataFromServer();
             }
         }
@@ -455,7 +459,6 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
 
         @Override
         public boolean isEnabled(int position) {
-
             return position == 0 ? false : super.isEnabled(position);
         }
 

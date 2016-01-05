@@ -3,11 +3,16 @@ package com.romens.yjkgrab.ui.activity;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.romens.yjkgrab.R;
+import com.romens.yjkgrab.ui.widget.FullListDialog;
 import com.romens.yjkgrab.ui.widget.ProgressView;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
 
@@ -68,10 +73,27 @@ public class TestActivity extends BaseActivity implements View.OnClickListener {
                 progressView.setStepTextColor(Color.rgb(Math.abs(r.nextInt(255)), Math.abs(r.nextInt(255)), Math.abs(r.nextInt(255))));
                 break;
             case R.id.un_pick_color:
-                progressView.setUnPickColor(Color.rgb(Math.abs(r.nextInt(255)), Math.abs(r.nextInt(255)), Math.abs(r.nextInt(255))));
+                showListDialog();
+//                progressView.setUnPickColor(Color.rgb(Math.abs(r.nextInt(255)), Math.abs(r.nextInt(255)), Math.abs(r.nextInt(255))));
                 break;
             default:
                 break;
         }
+    }
+
+    private void showListDialog() {
+        final ArrayList<String> arrs = new ArrayList<>();
+        for (int i = 0; i < 5; i++) {
+            arrs.add("item" + i);
+        }
+        String title="11111222";
+        FullListDialog fullListDialog = new FullListDialog(this,title, new ArrayAdapter<String>(this, R.layout.dialog_textview, arrs), new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Toast.makeText(TestActivity.this, arrs.get(position), Toast.LENGTH_SHORT).show();
+            }
+        });
+//        fullListDialog.setTitle("没没没没沒");
+        fullListDialog.show();
     }
 }
